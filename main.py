@@ -147,7 +147,7 @@ with st.container():
     st.markdown(
         "This bar chart show the distribution of positive and negative reviews in the dataset. By looking at the graph you can clearly seen that dataset is balanced."
     )
-    image = Image.open('C:\\Users\\HP\\PycharmProjects\\sentimentanalysis.py\\sentiment_distribution.png')
+    image = Image.open('sentiment_distribution.png')
     st.image(image)
 
 with st.container():
