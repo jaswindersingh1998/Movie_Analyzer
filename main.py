@@ -20,8 +20,8 @@ page_bg_img = """
 
 [data-testid="stAppViewContainer"] {
 padding: 0 100px; 
-background-image: url("https://firebasestorage.googleapis.com/v0/b/diffusion-library.appspot.com/o/wooden-table-with-movie-reel-in-black-colour-icon-on-it-in-photorealistic-style%2F6.jpg?alt=media&token=f0b05809-2e31-46c2-b2db-98c7f1ac84bb");
-#background-image: url("https://th.bing.com/th/id/OIP.LDqs_kFylu8Olf3WJ-sHWgHaEo?w=264&h=180&c=7&r=0&o=5&dpr=1.6&pid=1.7");
+#background-image: url("https://firebasestorage.googleapis.com/v0/b/diffusion-library.appspot.com/o/wooden-table-with-movie-reel-in-black-colour-icon-on-it-in-photorealistic-style%2F6.jpg?alt=media&token=f0b05809-2e31-46c2-b2db-98c7f1ac84bb");
+background-image: url("https://firebasestorage.googleapis.com/v0/b/diffusion-library.appspot.com/o/black-background%2F4.jpg?alt=media&token=8e7cee67-cbf7-47cb-8ffc-8775bd2efa7d");
 padding: 0 100px; 
 height: 200vh;
 display: flex;
