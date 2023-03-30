@@ -21,7 +21,7 @@ page_bg_img = """
 [data-testid="stAppViewContainer"] {
 padding: 0 100px; 
 #background-image: url("https://firebasestorage.googleapis.com/v0/b/diffusion-library.appspot.com/o/wooden-table-with-movie-reel-in-black-colour-icon-on-it-in-photorealistic-style%2F6.jpg?alt=media&token=f0b05809-2e31-46c2-b2db-98c7f1ac84bb");
-background-image: url("https://firebasestorage.googleapis.com/v0/b/diffusion-library.appspot.com/o/photorealistic-style-with-dark-background-with-movie-reel-in-it%2F0.jpg?alt=media&token=8922e7c0-9811-4ef5-aefa-0cfbb50bcaab");
+background-image: url("https://firebasestorage.googleapis.com/v0/b/diffusion-library.appspot.com/o/photorealistic-style-with-dark-background-with-movie-reel-in-it%2F2.jpg?alt=media&token=5a52fb53-b807-4bc0-9582-7b5d33e93907");
 padding: 0 100px; 
 height: 200vh;
 display: flex;
