@@ -358,7 +358,7 @@ with st.container():
     st.markdown(
         "This bar chart show the distribution of positive and negative reviews in the dataset. By looking at the graph you can clearly seen that dataset is balanced."
     )
-    image = Image.open('C:\\Users\\HP\\PycharmProjects\\sentimentanalysis.py\\sentiment_distribution.png')
+    image = Image.open('sentiment_distribution.png')
     st.image(image)
 
 with st.container():
@@ -366,7 +366,7 @@ with st.container():
     st.markdown(
         "This Histogram display the total number of word in each reviews."
     )
-    image = Image.open('C:\\Users\\HP\\PycharmProjects\\sentimentanalysis.py\\positive_words.png')
+    image = Image.open('positive_words.png')
     st.image(image)
 
 with st.container():
@@ -374,14 +374,14 @@ with st.container():
     st.markdown(
         "This graph illustrates the most common positive words that are found in the dataset."
     )
-    image = Image.open('C:\\Users\\HP\\PycharmProjects\\sentimentanalysis.py\\newplot.png')
+    image = Image.open('newplot.png')
     st.image(image)
 with st.container():
     st.header("Most Common Negative words")
     st.markdown(
         "This graph illustrates the most common negative words that are found in the dataset."
     )
-    image = Image.open('C:\\Users\\HP\\PycharmProjects\\sentimentanalysis.py\\bar.png')
+    image = Image.open('bar.png')
     st.image(image)
 
 with st.container():
@@ -389,7 +389,7 @@ with st.container():
     st.markdown(
         "This WordCloud display the most common positive words that we find in the dataset. WordCloud helps to analyze the test data through visualization and importance of the words can be explained by its frequency."
     )
-    image = Image.open('C:\\Users\\HP\\PycharmProjects\\sentimentanalysis.py\\positive.png')
+    image = Image.open('positive.png')
     st.image(image)
 
 with st.container():
@@ -397,7 +397,7 @@ with st.container():
     st.markdown(
         "This is the WordCloud for most common negative words."
     )
-    image = Image.open('C:\\Users\\HP\\PycharmProjects\\sentimentanalysis.py\\word.png')
+    image = Image.open('word.png')
     st.image(image)
 
 
