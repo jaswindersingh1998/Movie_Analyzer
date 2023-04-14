@@ -92,7 +92,212 @@ with st.expander('Analyze Reviews'):
     pre = st.text_input('Clean Text: ')
     if pre:
         st.write(cleantext.clean(pre, clean_all=False, extra_spaces=True,
-                                 stopwords=True, lowercase=True, numbers=True, punct=True))
+                                 stopwords=True, lowercase=True, numbers=True, punct=True)
+
+import requests
+import pandas as pd
+
+
+
+# Function to get movie recommendations based on sentiment analysis
+# Function to get movie recommendations based on sentiment analysis
+def get_movie_recommendations(query, year):
+    # Get search results for the user's query
+    params = {
+        "apikey": "111588ce",
+        "s": query,
+        "type": "movie",
+        "r": "json",
+        "y": year,
+       
+
+    }
+    response = requests.get("http://www.omdbapi.com/", params=params)
+    data = response.json()
+
+    # Check if the search was successful
+    if data["Response"] == "False":
+        st.write(data["Error"])
+    else:
+        # Create a DataFrame with the search results
+        movies_df = pd.DataFrame(data["Search"])
+
+        # Add a column for the sentiment of the movie reviews
+        movies_df["sentiment"] = movies_df["imdbID"].apply(
+            lambda id: TextBlob(get_movie_reviews(id)).sentiment.polarity
+        )
+        movies_df["director"] = movies_df["imdbID"].apply(
+            lambda id: get_movie_director(id)
+        )
+        movies_df["cast"] = movies_df["imdbID"].apply(
+            lambda id: get_movie_cast(id)
+        )
+        movies_df["plot"] = movies_df["imdbID"].apply(
+            lambda id: get_movie_plot(id)
+        )
+        movies_df["awards"] = movies_df["imdbID"].apply(
+            lambda id: get_movie_awards(id)
+        )
+        movies_df["runtime"] = movies_df["imdbID"].apply(
+            lambda id: get_movie_runtime(id)
+        )
+        # Add a column for the trailer URL
+        movies_df["trailer"] = movies_df.apply(
+            lambda row: get_movie_trailer(row["Title"], row["Year"]),
+            axis=1
+        )
+
+        # Add a column for the movie rating
+        movies_df["rating"] = movies_df["imdbID"].apply(
+            lambda id: get_movie_rating(id)
+        )
+        # Add a column for the poster image
+        movies_df["poster"] = movies_df["imdbID"].apply(
+            lambda id: get_movie_poster(id)
+        )
+
+
+        # Sort the DataFrame by sentiment in descending order
+        movies_df = movies_df.sort_values(by="sentiment", ascending=False)
+
+        # Return the top 10 movies with the highest sentiment
+        return movies_df[["Title", "Year", "director", "cast", "plot", "sentiment" , "awards", "runtime", "trailer", "poster"]][:10]
+
+
+# Function to get the reviews for a movie
+def get_movie_reviews(id):
+    params = {
+        "apikey": "111588ce",
+        "i": id,
+        "type": "movie",
+        "r": "json",
+        "plot": "full",
+    }
+    response = requests.get("http://www.omdbapi.com/", params=params)
+    data = response.json()
+    return data["Plot"]
+
+def get_movie_rating(imdb_id):
+    """Returns the rating for a given movie IMDB ID."""
+    url = f"http://www.omdbapi.com/?i={imdb_id}&apikey=111588ce"
+    data = requests.get(url).json()
+    rating = data.get("imdbRating")
+    if rating and rating != "N/A":
+        return float(rating)
+    else:
+        return None
+
+def get_movie_cast(imdb_id):
+    """Returns the cast for a given movie IMDB ID."""
+    url = f"http://www.omdbapi.com/?i={imdb_id}&apikey=111588ce"
+    data = requests.get(url).json()
+    cast = data.get("Actors")
+    if cast and cast != "N/A":
+        return cast.split(", ")
+    else:
+        return None
+def get_movie_plot(imdb_id):
+    """Returns the plot for a given movie IMDB ID."""
+    url = f"http://www.omdbapi.com/?i={imdb_id}&apikey=111588ce"
+    data = requests.get(url).json()
+    plot = data.get("Plot")
+    return plot
+
+def get_movie_director(imdb_id):
+    """Returns the director information for a given movie IMDB ID."""
+    url = f"http://www.omdbapi.com/?i={imdb_id}&apikey=111588ce"
+    data = requests.get(url).json()
+    director = data.get("Director")
+    if director and director != "N/A":
+        return director
+    else:
+        return None
+def get_movie_awards(imdb_id):
+    """Returns the awards for a given movie IMDB ID."""
+    url = f"http://www.omdbapi.com/?i={imdb_id}&apikey=111588ce"
+    data = requests.get(url).json()
+    awards = data.get("Awards")
+    if awards and awards != "N/A":
+        return awards
+    else:
+        return None
+def get_movie_runtime(imdb_id):
+    """Returns the runtime for a given movie IMDB ID."""
+    url = f"http://www.omdbapi.com/?i={imdb_id}&apikey=111588ce"
+    data = requests.get(url).json()
+    runtime = data.get("Runtime")
+    if runtime and runtime != "N/A":
+        return runtime
+    else:
+        return None
+import requests
+import urllib.parse
+
+YOUTUBE_API_KEY = "AIzaSyCWqqBCEwGQmern61gI0fB7xoW4tWanA5k"
+
+def get_movie_trailer(title, year):
+    # Build the search query for the YouTube API
+    query = f"{title} {year} trailer"
+    query = urllib.parse.quote_plus(query)
+
+    # Make a request to the YouTube API to search for the trailer
+    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&key={YOUTUBE_API_KEY}&q={query}"
+    response = requests.get(url).json()
+
+    # Extract the trailer URL from the API response
+    if "items" in response and len(response["items"]) > 0:
+        trailer_id = response["items"][0]["id"]["videoId"]
+        trailer_url = f"https://www.youtube.com/watch?v={trailer_id}"
+        return trailer_url
+    else:
+        return None
+
+
+# Function to get the poster image for a movie
+def get_movie_poster(imdb_id):
+    """Returns the poster URL for a given movie IMDB ID."""
+    url = f"http://www.omdbapi.com/?i={imdb_id}&apikey=111588ce"
+    data = requests.get(url).json()
+    poster_url = data.get("Poster")
+    if poster_url and poster_url != "N/A":
+        return poster_url
+    else:
+        return "https://via.placeholder.com/image not"  # default poster image
+
+
+
+# Streamlit app
+def app():
+ with st.expander('Movie Recommendation'):
+    # Get user input
+
+    query = st.text_input("Enter the Movie Genre:")
+    year = st.text_input("Enter a year:")
+
+    if query:
+        st.markdown(f"<h3 style='text-align: center;'>Top 10 recommended movies for '{query}':</h3>", unsafe_allow_html=True)
+
+        # Get movie recommendations based on sentiment analysis
+        recommendations = get_movie_recommendations(query, year)
+
+        # Display the recommendations as a table with posters
+        for _, row in recommendations.iterrows():
+            st.subheader(f"Title: {row['Title']}")
+            st.image(row["poster"])
+            st.write(f"Year: {row['Year']}")
+            st.write(f"Director: {row['director']}")
+            st.write(f"Cast: {row['cast']}")
+            st.write(f"Plot: {row['plot']}")
+            st.write(f"Sentiment: {row['sentiment']:.2f}")
+            st.write(f"Awards: {row['awards']}")
+            st.write(f"Runtime: {row['runtime']}")
+            trailer_url = row["trailer"]
+            #if trailer_url:
+            st.markdown(f"[Watch the trailer]({trailer_url})")
+            st.write("---")
+
+if __name__ == "__main__":
+    app()
 
 with st.expander('Analyze Data'):
     upl = st.file_uploader('Upload file')
