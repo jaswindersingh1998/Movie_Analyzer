@@ -298,8 +298,8 @@ def app():
             st.write(f"Awards: {row['awards']}")
             st.write(f"Runtime: {row['runtime']}")
             trailer_url = row["trailer"]
-            #if trailer_url:
-            st.markdown(f"[Watch the trailer]({trailer_url})")
+            if trailer_url:
+                st.markdown(f"[Watch the trailer]({trailer_url})")
             st.write("---")
 
 if __name__ == "__main__":
