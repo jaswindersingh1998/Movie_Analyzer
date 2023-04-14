@@ -100,7 +100,7 @@ with st.expander('Analyze Reviews'):
 
 # Function to get movie recommendations based on sentiment analysis
 # Function to get movie recommendations based on sentiment analysis
-def get_movie_recommendations(query, year):
+ def get_movie_recommendations(query, year):
     # Get search results for the user's query
     params = {
         "apikey": "111588ce",
