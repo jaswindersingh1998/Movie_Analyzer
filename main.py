@@ -166,7 +166,7 @@ def get_movie_recommendations(query, year):
         movies_df = movies_df.sort_values(by="sentiment", ascending=False)
 
         # Return the top 10 movies with the highest sentiment
-        return movies_df[["Title", "Year", "director", "cast", "plot", "sentiment" , "awards", "runtime", "trailer", "poster"]][:10]
+        return movies_df[["Title", "Year", "director", "cast", "plot", "sentiment" , "rating" , "awards", "runtime", "trailer", "poster"]][:10]
 
 
 # Function to get the reviews for a movie
@@ -291,7 +291,7 @@ def app():
             st.subheader(f"Title: {row['Title']}")
             st.image(row["poster"])
             st.write(f"Year: {row['Year']}")
-            #st.write(f"Rated: {movie_info['Rated']}")
+            st.write(f"Rated: {movie_info['Rated']}")
             st.write(f"Director: {row['director']}")
             st.write(f"Cast: {row['cast']}")
             st.write(f"Plot: {row['plot']}")
