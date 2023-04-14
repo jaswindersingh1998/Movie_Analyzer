@@ -242,6 +242,7 @@ YOUTUBE_API_KEY = "AIzaSyCWqqBCEwGQmern61gI0fB7xoW4tWanA5k"
 
 def get_movie_trailer(title, year):
     # Build the search query for the YouTube API
+    YOUTUBE_API_KEY = "AIzaSyCWqqBCEwGQmern61gI0fB7xoW4tWanA5k"
     query = f"{title} {year} trailer"
     query = urllib.parse.quote_plus(query)
 
