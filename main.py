@@ -94,8 +94,7 @@ with st.expander('Analyze Reviews'):
         st.write(cleantext.clean(pre, clean_all=False, extra_spaces=True,
                                  stopwords=True, lowercase=True, numbers=True, punct=True)
 
-import requests
-import pandas as pd
+
 
 
 
