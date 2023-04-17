@@ -48,6 +48,14 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 st.header('Sentiment Analysis on Movie Reviews')
 col1, col2, col3 = st.columns([1 ,2 ,1]);
 
+def get_movie_reviews(imdbID):
+    url = f'http://www.omdbapi.com/?apikey=111588ce&i={imdbID}&plot=short&r=json'
+    response = requests.get(url)
+    data = response.json()
+    if data['Response'] == 'True':
+        return data['Plot']
+    else:
+        return None
 def get_movie_info(title):
     url = f'http://www.omdbapi.com/?apikey=111588ce&t={quote(title)}'
     response = requests.get(url)
@@ -84,6 +92,14 @@ with st.expander('Analyze Reviews'):
             st.write(f"Released: {movie_info['Released']}")
             st.write(f"Country: {movie_info['Country']}")
             st.write(f"IMDb Rating: {movie_info['imdbRating']}")
+            movie_info = get_movie_info( txt)
+            reviews = get_movie_reviews(movie_info['imdbID'])
+            if reviews:
+                blob = TextBlob(reviews)
+                st.write('Polarity: ', round(blob.sentiment.polarity, 2))
+
+            else:
+                st.write('No reviews found')
         else:
             st.write("Movie not found")
 
