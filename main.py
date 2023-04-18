@@ -254,11 +254,11 @@ def get_movie_runtime(imdb_id):
 import requests
 import urllib.parse
 
-YOUTUBE_API_KEY = "AIzaSyDuCM0uYtM8LwI2lhUkzfQtKacXm2u7Jbg"
+YOUTUBE_API_KEY = "AIzaSyCWqqBCEwGQmern61gI0fB7xoW4tWanA5k"
 
 def get_movie_trailer(title, year):
     # Build the search query for the YouTube API
-    YOUTUBE_API_KEY = "AIzaSyDuCM0uYtM8LwI2lhUkzfQtKacXm2u7Jbg"
+    YOUTUBE_API_KEY = "AIzaSyCWqqBCEwGQmern61gI0fB7xoW4tWanA5k"
     query = f"{title} {year} trailer"
     query = urllib.parse.quote_plus(query)
 
