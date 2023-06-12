@@ -1,4 +1,4 @@
-
+# Importing required libraries
 from textblob import TextBlob
 import pandas as pd
 import streamlit as st
@@ -9,26 +9,20 @@ import requests
 from io import BytesIO
 import streamlit.components.v1 as components
 
-
-
-
-
+# Set background image for the page
 page_bg_img = """
 <style>
 
 [data-testid="stAppViewContainer"] {
 padding: 0 100px;
 background-image: url("https://firebasestorage.googleapis.com/v0/b/diffusion-library.appspot.com/o/wooden-table-with-movie-reel-in-black-colour-icon-on-it-in-photorealistic-style%2F6.jpg?alt=media&token=f0b05809-2e31-46c2-b2db-98c7f1ac84bb");
-#background-image: url("https://th.bing.com/th/id/OIP.LDqs_kFylu8Olf3WJ-sHWgHaEo?w=264&h=180&c=7&r=0&o=5&dpr=1.6&pid=1.7");
 padding: 0 100px;
 height: 200vh;
 display: flex;
 justify-content: center;
-
 background-repeat: no-repeat;
 background-position: center;
 background-size: 100% 100%;
-
 }
 
 [data-testid="stHeader"] {
@@ -43,11 +37,13 @@ background: rgba(0,0,0,0);
 </style>
 """
 
+# Apply the background image
 style ="background-color: rgba(255, 255, 255, 0.5);"
 st.markdown(page_bg_img, unsafe_allow_html=True)
+# Set page header
 st.header('Sentiment Analysis on Movie Reviews')
 col1, col2, col3 = st.columns([1 ,2 ,1]);
-
+# Function to fetch movie review from the OMDB API
 def get_movie_reviews(imdbID):
     url = f'http://www.omdbapi.com/?apikey=111588ce&i={imdbID}&plot=short&r=json'
     response = requests.get(url)
@@ -56,6 +52,7 @@ def get_movie_reviews(imdbID):
         return data['Plot']
     else:
         return None
+# Function to fetch movie information from the OMDB API
 def get_movie_info(title):
     url = f'http://www.omdbapi.com/?apikey=111588ce&t={quote(title)}'
     response = requests.get(url)
@@ -71,6 +68,7 @@ def get_movie_info(title):
             movie_data['poster_image'] = poster_image
     return movie_data
 
+# Create an expander for analyzing movie reviews
 with st.expander('Analyze Reviews'):
     txt = st.text_input('Enter Movie Title: ')
     if txt:
@@ -103,7 +101,7 @@ with st.expander('Analyze Reviews'):
         else:
             st.write("Movie not found")
 
-
+# Collect user input for the review
     text = st.text_input('Review here: ')
     if text:
         blob = TextBlob(text)
@@ -115,12 +113,7 @@ with st.expander('Analyze Reviews'):
         #st.write(cleantext.clean(pre, clean_all=False, extra_spaces=True,
                                  #stopwords=True, lowercase=True, numbers=True, punct=True))
 
-import requests
-import pandas as pd
 
-
-
-# Function to get movie recommendations based on sentiment analysis
 # Function to get movie recommendations based on sentiment analysis
 def get_movie_recommendations(query, year):
     # Get search results for the user's query
@@ -288,11 +281,10 @@ def get_movie_poster(imdb_id):
 
 
 
-# Streamlit app
+# Creating GUI using Streamlit
 def app():
  with st.expander('Movie Recommendation'):
     # Get user input
-
     query = st.text_input("Enter the Movie Genre:")
     year = st.text_input("Enter a year:")
 
